@@ -35,6 +35,9 @@ endif
 ifeq ($(TARGET_USES_ION),true)
 libmm-venc-def += -DUSE_ION
 endif
+ifeq ($(TARGET_USES_MEDIA_EXTENSIONS),true)
+libmm-venc-def += -DUSE_NATIVE_HANDLE_SOURCE
+endif
 libmm-venc-def += -D_ANDROID_ICS_
 # ---------------------------------------------------------------------------------
 # 			Make the Shared library (libOmxVenc)
@@ -57,6 +60,7 @@ libmm-venc-inc      += frameworks/av/include/media/stagefright
 LOCAL_MODULE                    := libOmxVenc
 LOCAL_MODULE_TAGS               := optional
 LOCAL_CFLAGS                    := $(libmm-venc-def)
+LOCAL_CLANG                     := false
 LOCAL_C_INCLUDES                := $(libmm-venc-inc)
 
 LOCAL_SHARED_LIBRARIES    := liblog libutils libbinder libcutils \
@@ -90,6 +94,7 @@ mm-venc-test720p-inc            += $(TARGET_OUT_HEADERS)/qcom/display
 LOCAL_MODULE                    := mm-venc-omx-test720p
 LOCAL_MODULE_TAGS               := optional
 LOCAL_CFLAGS                    := $(libmm-venc-def)
+LOCAL_CLANG                     := false
 LOCAL_C_INCLUDES                := $(mm-venc-test720p-inc)
 LOCAL_SHARED_LIBRARIES          := libmm-omxcore libOmxVenc libbinder
 
